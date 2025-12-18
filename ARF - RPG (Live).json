@@ -1,0 +1,1643 @@
+{
+  "name": "ARF - RPG (Live)",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        }
+      },
+      "id": "f275431e-be7e-4c2b-90c1-f197b8bea6b3",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "options": {}
+      },
+      "id": "3b369f29-58ce-43ad-bf65-269e42bae383",
+      "name": "Read Second Reminder Eligible2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1584,
+        320
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5jgvXk3ta6yOtCAS",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "options": {}
+      },
+      "id": "21b81342-7e6e-4758-9417-8ab774f1fd85",
+      "name": "Read Final Reminder Eligible2",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1584,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5jgvXk3ta6yOtCAS",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json['Inital Status'] }}",
+              "value2": "Add to placements"
+            }
+          ]
+        }
+      },
+      "id": "9ef6c7c5-776a-48c1-b48a-6c3b2140604c",
+      "name": "Add to Placements Status",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1360,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json['Inital Status'] }}",
+              "value2": "Add to placements"
+            }
+          ]
+        }
+      },
+      "id": "951501e6-9a8a-4b44-8b5c-d2e065b4821d",
+      "name": "IF Placement Status4",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1360,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json['Inital Status'] }}",
+              "value2": "Add to placements"
+            }
+          ]
+        }
+      },
+      "id": "5e41c7e3-3a58-405c-880c-4c2ca7473048",
+      "name": "IF Placement Status5",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1360,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json['First Email Sent'] }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "notEqual",
+                "singleValue": true
+              },
+              "id": "chk1"
+            },
+            {
+              "id": "ba5c32be-28d2-4690-b350-c4d375ef63dc",
+              "leftValue": "={{ $json['First Email Sent'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -912,
+        16
+      ],
+      "id": "d0df0602-15a6-4644-a8ae-030b84e8c8ec",
+      "name": "First Email NOT Sent?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json['Second Email Sent'] }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "notEqual",
+                "singleValue": true
+              },
+              "id": "chk2"
+            },
+            {
+              "id": "079ab2fa-672c-4745-985b-4c0d8234d88d",
+              "leftValue": "={{ $json['Second Email Sent'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -912,
+        320
+      ],
+      "id": "2937ef84-221e-401c-9bb6-495573e236a0",
+      "name": "Second Email NOT Sent?"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "4f63159a-31e8-4339-9773-49ef28d1dc66",
+      "name": "Split First Batch1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3f1bd141-3657-4bee-bf94-117ddb98a9a3",
+      "name": "Split Second Batch1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "102b6feb-6090-4983-94ed-55c3ab945de6",
+      "name": "Split Final Batch1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Gate 30 Minutes Since First (for testing)\nconst THRESHOLD_MS = 3 * 24 * 60 * 60 * 1000; // 3 days\n\nfunction parseDateFlexible(v) {\n  if (!v) return null;\n  if (typeof v === 'number') return new Date(v); // epoch millis\n  const s = String(v).trim();\n\n  // epoch detection\n  if (/^\\d{13}$/.test(s)) return new Date(Number(s));\n  if (/^\\d{10}$/.test(s)) return new Date(Number(s) * 1000);\n\n  // try ISO first (Google Sheets usually gives this format)\n  const isoDate = new Date(s);\n  if (!isNaN(isoDate)) return isoDate;\n\n  // fallback: dd/mm/yyyy or dd-mm-yyyy\n  const m = s.match(/^(\\d{1,2})[\\/\\-](\\d{1,2})[\\/\\-](\\d{4})(?:[ T](\\d{1,2}):(\\d{2})(?::(\\d{2}))?)?$/);\n  if (m) {\n    const dd = +m[1], mm = +m[2], yyyy = +m[3];\n    const hh = +(m[4]||0), mi = +(m[5]||0), ss = +(m[6]||0);\n    return new Date(yyyy, mm-1, dd, hh, mi, ss);\n  }\n\n  return null;\n}\n\nconst nowMs = Date.now();\nreturn items.filter(item => {\n  const v = item.json['First Email Sent At'] || item.json['First Email Sent at'] || item.json['First Email Sent Timestamp'];\n  const d = parseDateFlexible(v);\n\n  if (!d) {\n    item.json.debug_note = `Invalid date: ${v}`;\n    return false;\n  }\n\n  const diff = nowMs - d.getTime();\n  item.json.debug_note = `FirstEmail=${v}, DiffMins=${(diff/60000).toFixed(2)}`;\n  return diff >= THRESHOLD_MS;\n});\n"
+      },
+      "id": "2ffddf65-c24c-4a71-8847-4d4533112f34",
+      "name": "Gate 3 Days Since First",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        320
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "functionCode": "// Gate 30 Minutes Since Second (for testing)\nconst THRESHOLD_MS = 3 * 24 * 60 * 60 * 1000; // 3 days\n\nfunction parseDateFlexible(v) {\n  if (!v) return null;\n  if (typeof v === 'number') return new Date(v); // epoch millis\n  const s = String(v).trim();\n\n  // epoch detection\n  if (/^\\d{13}$/.test(s)) return new Date(Number(s));\n  if (/^\\d{10}$/.test(s)) return new Date(Number(s) * 1000);\n\n  // try ISO first (Google Sheets usually gives this format)\n  const isoDate = new Date(s);\n  if (!isNaN(isoDate)) return isoDate;\n\n  // fallback: dd/mm/yyyy or dd-mm-yyyy\n  const m = s.match(/^(\\d{1,2})[\\/\\-](\\d{1,2})[\\/\\-](\\d{4})(?:[ T](\\d{1,2}):(\\d{2})(?::(\\d{2}))?)?$/);\n  if (m) {\n    const dd = +m[1], mm = +m[2], yyyy = +m[3];\n    const hh = +(m[4]||0), mi = +(m[5]||0), ss = +(m[6]||0);\n    return new Date(yyyy, mm-1, dd, hh, mi, ss);\n  }\n\n  return null;\n}\n\nconst nowMs = Date.now();\nreturn items.filter(item => {\n  const v = item.json['Second Email Sent At'] || item.json['Second Email Sent at'] || item.json['Second Email Sent Timestamp'];\n  const d = parseDateFlexible(v);\n\n  if (!d) {\n    item.json.debug_note = `Invalid date: ${v}`;\n    return false;\n  }\n\n  const diff = nowMs - d.getTime();\n  item.json.debug_note = `SecondEmail=${v}, DiffMins=${(diff/60000).toFixed(2)}`;\n  return diff >= THRESHOLD_MS;\n});\n"
+      },
+      "id": "29095622-f16f-47f4-bdef-d382e2a6cd56",
+      "name": "Gate 3 Days Since Second",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Latest email id'] }}",
+        "subject": "Masai - Complete Re-Entry Steps",
+        "message": "=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>Masai School Alumni Support</title>\n  <style>\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n    }\n    \n    body {\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;\n      line-height: 1.6;\n      color: #333333;\n      background: #f5f5f5;\n      padding: 30px 20px;\n    }\n    \n    .container {\n      max-width: 650px;\n      margin: 0 auto;\n      background: #ffffff;\n      border-radius: 8px;\n      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n      overflow: hidden;\n    }\n    \n    .header {\n      background: #ffffff;\n      padding: 30px;\n      border-bottom: 3px solid #1a73e8;\n    }\n    \n    .header h1 {\n      font-size: 24px;\n      font-weight: 600;\n      color: #1a73e8;\n      margin-bottom: 5px;\n    }\n    \n    .content {\n      padding: 35px 30px;\n    }\n    \n    .greeting {\n      font-size: 15px;\n      margin-bottom: 18px;\n      color: #333333;\n    }\n    \n    .intro {\n      margin-bottom: 25px;\n      color: #555555;\n      font-size: 15px;\n    }\n    \n    .section {\n      margin-bottom: 30px;\n      padding-bottom: 25px;\n      border-bottom: 1px solid #e0e0e0;\n    }\n    \n    .section:last-of-type {\n      border-bottom: none;\n    }\n    \n    .section h2 {\n      color: #1a73e8;\n      font-size: 18px;\n      font-weight: 600;\n      margin-bottom: 15px;\n    }\n    \n    .section ul {\n      list-style: none;\n      margin-left: 0;\n    }\n    \n    .section ul li {\n      margin-bottom: 12px;\n      color: #555555;\n      font-size: 15px;\n      padding-left: 18px;\n      position: relative;\n    }\n    \n    .section ul li:before {\n      content: \"•\";\n      color: #1a73e8;\n      font-weight: bold;\n      position: absolute;\n      left: 0;\n    }\n    \n    .section ul ul {\n      margin-top: 8px;\n      margin-left: 20px;\n    }\n    \n    strong {\n      color: #333333;\n      font-weight: 600;\n    }\n    \n    .important-notes {\n      background: #fff8e1;\n      border: 1px solid #ffc107;\n      padding: 20px;\n      border-radius: 4px;\n      margin-bottom: 25px;\n    }\n    \n    .important-notes h2 {\n      color: #f57c00;\n      font-size: 17px;\n      margin-bottom: 12px;\n    }\n    \n    .important-notes ul li {\n      color: #666666;\n    }\n    \n    .important-notes ul li:before {\n      color: #f57c00;\n    }\n    \n    .signature {\n      margin-top: 30px;\n      padding-top: 20px;\n      border-top: 1px solid #e0e0e0;\n      color: #555555;\n      font-size: 15px;\n    }\n    \n    .signature p {\n      margin-bottom: 5px;\n    }\n    \n    a {\n      color: #1a73e8;\n      text-decoration: none;\n      font-weight: 500;\n    }\n    \n    a:hover {\n      text-decoration: underline;\n    }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>Alumni Placement Support</h1>\n    </div>\n    \n    <div class=\"content\">\n      <p class=\"greeting\">Dear {{ $json[\"Student Name\"] }},</p>\n      \n      <p class=\"intro\">Thank you for joining the call. We are truly sorry to hear about the unfortunate circumstances that led to your job loss. Please be assured that our goal is to ensure that this small blip in your career is quickly left behind.</p>\n      \n      <p class=\"intro\">As discussed, there are three key steps to prepare for re-entry into placements:</p>\n      \n      <div class=\"section\">\n        <h2>Part A: Resume, Portfolio & GitHub (RPG) Clearance</h2>\n        <ul>\n          <li><strong>Update your Resume, Portfolio, and GitHub:</strong> Ensure all are current and reflect your latest skills and projects.</li>\n          <li><strong>Submission:</strong> Complete the RPG form and upload the updated documents.</li>\n          <li><strong>Guidelines:</strong> <a href=\"https://drive.google.com/file/d/1-6kqVZfK6TBWHKtksrdt4oRgnQ94Lr-m/preview\" target=\"_blank\" rel=\"noopener noreferrer\">RPG Clearance Steps</a></li>\n        </ul>\n      </div>\n      \n      <div class=\"section\">\n        <h2>Part B: Hukumu Interview & Practice Interviews</h2>\n        <ul>\n          <li><strong>Platform:</strong> <a href=\"https://hukumu.masaischool.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Hukumu Interview Platform</a></li>\n          <li><strong>Objective:</strong> This is a human-based interview where you need to score a minimum of 5 marks.</li>\n          <li><strong>Outcome:</strong>\n            <ul>\n              <li>Score below 5: You'll be added to the Continued Curriculum for further skill enhancement.</li>\n              <li>Score 5 or above: You'll receive placement opportunities and also be part of the Continued Curriculum to brush up your skills.</li>\n            </ul>\n          </li>\n          <li><strong>Practice Interviews:</strong> <a href=\"https://placed.tech/\" target=\"_blank\" rel=\"noopener noreferrer\">Placed.tech</a></li>\n        </ul>\n      </div>\n      \n      <div class=\"section\">\n        <h2>Part C: Alumni Code of Conduct Review</h2>\n        <ul>\n          <li><strong>Review:</strong> <a href=\"https://www.masaischool.com/blog/the-masai-school-code-of-conduct/\" target=\"_blank\" rel=\"noopener noreferrer\">Code of Conduct</a></li>\n          <li><strong>Acknowledgment:</strong> Sign and acknowledge the document. You'll be required to submit this as part of the RPG form when uploading your updated Resume, Portfolio, and GitHub.</li>\n        </ul>\n      </div>\n      \n      <div class=\"important-notes\">\n        <h2>Important Notes</h2>\n        <ul>\n          <li><strong>Process Duration:</strong> Completing the above steps will take a maximum of 7 days, depending on your responsiveness and involvement. Failure to complete these steps within 7 days will result in ineligibility for EMI and Placement support.</li>\n          <li><strong>Support Suspension:</strong> Any delay in completing these steps may result in the suspension of your EMI and Placement support.</li>\n          <li><strong>Workspace Transition:</strong> As you've requested placement support, you'll be added to the Placement workspace on Slack and deactivated from the Alumni workspace. Once you restart your career, either independently or through Masai placements, you'll be re-added to the Alumni workspace.</li>\n          <li><strong>Support:</strong> For any questions or concerns, please reply to this email or reach out to us at <a href=\"mailto:alumni@masaischool.com\">alumni@masaischool.com</a>.</li>\n        </ul>\n      </div>\n      \n      <p class=\"intro\">Please note that any Contingency and Placement support will be initiated only after all the above steps are completed. We are committed to supporting you through this transition and helping you achieve your career aspirations.</p>\n      \n      <div class=\"signature\">\n        <p>Warm regards,</p>\n        <p><strong>Alumni Support Team</strong></p>\n        <p><strong>Masai School</strong></p>\n      </div>\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {
+          "ccList": "gautam.yadav@masaischool.com, jisshnu.ns@masaischool.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -464,
+        -64
+      ],
+      "id": "30607251-90ba-46ce-a7ff-abedf7705826",
+      "name": "First Generic Email",
+      "webhookId": "fb8183ac-26f9-412f-9bdc-47dafdf49bf6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "AibNzMyU8i1G375j",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Student Code": "={{ $('Split First Batch1').item.json['Student Code'] }}",
+            "First Email Sent": "Yes",
+            "First Email Sent At": "={{ $now.setZone(\"Asia/Kolkata\").toISO() }}"
+          },
+          "matchingColumns": [
+            "Student Code"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Student Name",
+              "displayName": "Student Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Student Code",
+              "displayName": "Student Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Inital Status",
+              "displayName": "Inital Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Latest email id",
+              "displayName": "Latest email id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Call date 1",
+              "displayName": "Call date 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Resume Link",
+              "displayName": "Resume Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Final Status",
+              "displayName": "Final Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Hukumu Eligible",
+              "displayName": "Hukumu Eligible",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Clearance Date",
+              "displayName": "Clearance Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "First Email Sent",
+              "displayName": "First Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "First Email Sent At",
+              "displayName": "First Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Second Email Sent",
+              "displayName": "Second Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Second Email Sent At",
+              "displayName": "Second Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Third Email Sent",
+              "displayName": "Third Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Third Email Sent At",
+              "displayName": "Third Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "9cd36519-9e73-4f34-b9ab-676f9eea7fc1",
+      "name": "First Email Sent Update",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -240,
+        -64
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5jgvXk3ta6yOtCAS",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "rpg_automation_test_email",
+        "text": "=📩 RPG Automation Email Update | \n\nEmail Type: First Reminder:\n\nStudent Name: {{ $json['Student Name'] }}\n\nStudent Code: {{ $('Split First Batch1').item.json['Student Code'] }}\n\nEmail: {{ $json['Latest email id'] }}\n\nSent At: {{ $now.setZone(\"Asia/Kolkata\").toISO() }}",
+        "otherOptions": {},
+        "attachments": []
+      },
+      "id": "436f04c1-7dfe-4756-ab42-bb6561fc56d2",
+      "name": "Slack Log - First Email1",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        176,
+        96
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "gYzA7fukIRJ2cFfd",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Second Email Sent": "Yes",
+            "Second Email Sent At": "={{ $now.setZone(\"Asia/Kolkata\").toISO() }}",
+            "Student Code": "={{ $('Second Email NOT Sent?').item.json['Student Code'] }}"
+          },
+          "matchingColumns": [
+            "Student Code"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Student Name",
+              "displayName": "Student Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Student Code",
+              "displayName": "Student Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Inital Status",
+              "displayName": "Inital Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Latest email id",
+              "displayName": "Latest email id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Call date 1",
+              "displayName": "Call date 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Resume Link",
+              "displayName": "Resume Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Final Status",
+              "displayName": "Final Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Hukumu Eligible",
+              "displayName": "Hukumu Eligible",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Clearance Date",
+              "displayName": "Clearance Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "First Email Sent",
+              "displayName": "First Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "First Email Sent At",
+              "displayName": "First Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Second Email Sent",
+              "displayName": "Second Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Second Email Sent At",
+              "displayName": "Second Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Third Email Sent",
+              "displayName": "Third Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Third Email Sent At",
+              "displayName": "Third Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "987af1af-7515-428a-9be3-31f780e63f61",
+      "name": "Second Email Sent Update",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -16,
+        256
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5jgvXk3ta6yOtCAS",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "rpg_automation_test_email",
+        "text": "=📩 RPG Automation Email Update | \n\nEmail Type: Final Reminder:\n\nStudent Name: {{ $json['Student Name'] }}\n\nStudent Code: {{ $('Split First Batch1').item.json['Student Code'] }}\n\nEmail: {{ $json['Latest email id'] }}\n\nSent At: {{ $now.setZone(\"Asia/Kolkata\").toISO() }}",
+        "otherOptions": {},
+        "attachments": []
+      },
+      "id": "7709ca78-2ee8-4e44-9930-2cc78e561964",
+      "name": "Slack Log - Second Reminder1",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        272,
+        416
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "gYzA7fukIRJ2cFfd",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Latest email id'] }}",
+        "subject": "Closure of Your Support Request – RPG Form",
+        "message": "=<!DOCTYPE html> <html lang=\"en\"> <head>   <meta charset=\"UTF-8\">   <style>     body {       font-family: Arial, sans-serif;       color: #333333;       line-height: 1.6;       margin: 0;       padding: 0;       background-color: #f7f7f7;     }     .container {       max-width: 650px;       margin: 30px auto;       background-color: #ffffff;       border-radius: 8px;       padding: 25px 30px;       box-shadow: 0px 2px 6px rgba(0,0,0,0.1);     }     h2 {       color: #2a2a2a;       margin-bottom: 15px;     }     p {       margin-bottom: 15px;     }     a {       color: #1a73e8;       text-decoration: none;     }     a:hover {       text-decoration: underline;     }     .footer {       margin-top: 30px;       font-size: 13px;       color: #777777;       border-top: 1px solid #eeeeee;       padding-top: 15px;     }   </style> </head> <body>   <div class=\"container\">     <h2>Closure of Your Support Request – RPG Form</h2>      <p>Dear {{ $json['Student Name'] }},</p>      <p>We hope this message finds you well. Thank you once again for choosing <strong>Masai School</strong> as your learning partner. At Masai, our values of <strong>trust, transparency, and student outcomes</strong> guide everything we do, and your success remains our top priority.</p>      <p>We noticed that you had raised a query with us regarding the <strong>RPG form</strong>. Our team has already shared a response, but as we haven’t received a reply from your end, we will now be closing this request, trusting that your concern has been resolved.</p>      <p>If you need further clarification or have any additional queries, please don’t hesitate to reach out to us at <a href=\"mailto:alumni@masaischool.com\">alumni@masaischool.com</a>. We are always committed to assisting you whenever required.</p>      <p>Thank you for being a valued part of the <strong>Masai School community</strong>. We look forward to continuing to support you in your journey.</p>      <p>Warm regards,<br>     <strong>Alumni Support Team</strong><br>     Masai School</p>      <div class=\"footer\">       <p>This is an automated email. Please do not reply directly to this message.</p>     </div>   </div> </body> </html>",
+        "options": {
+          "ccList": "gautam.yadav@masaischool.com, jisshnu.ns@masaischool.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -240,
+        544
+      ],
+      "id": "a007b676-1c34-4e1b-aaf0-8f3a7dffe03f",
+      "name": "Final Closure Email",
+      "webhookId": "fb8183ac-26f9-412f-9bdc-47dafdf49bf6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "AibNzMyU8i1G375j",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Student Code": "={{ $('Split Final Batch1').item.json['Student Code'] }}",
+            "Third Email Sent": "Yes",
+            "Third Email Sent At": "={{ $now.setZone(\"Asia/Kolkata\").toISO() }}"
+          },
+          "matchingColumns": [
+            "Student Code"
+          ],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Student Name",
+              "displayName": "Student Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Student Code",
+              "displayName": "Student Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Inital Status",
+              "displayName": "Inital Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Latest email id",
+              "displayName": "Latest email id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Call date 1",
+              "displayName": "Call date 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Resume Link",
+              "displayName": "Resume Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Final Status",
+              "displayName": "Final Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Hukumu Eligible",
+              "displayName": "Hukumu Eligible",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Clearance Date",
+              "displayName": "Clearance Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "First Email Sent",
+              "displayName": "First Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "First Email Sent At",
+              "displayName": "First Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Second Email Sent",
+              "displayName": "Second Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Second Email Sent At",
+              "displayName": "Second Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Third Email Sent",
+              "displayName": "Third Email Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Third Email Sent At",
+              "displayName": "Third Email Sent At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "5df8f3ef-2bb0-4401-ac74-9aaa0abd505c",
+      "name": "Third Email Sent Update",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -16,
+        544
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5jgvXk3ta6yOtCAS",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "channel": "rpg_automation_test_email",
+        "text": "=📩 RPG Automation Email Update | \n\nEmail Type: Loop Closure Email:\n\nStudent Name: {{ $json['Student Name'] }}\n\nStudent Code: {{ $('Split First Batch1').item.json['Student Code'] }}\n\nEmail: {{ $json['Latest email id'] }}\n\nSent At: {{ $now.setZone(\"Asia/Kolkata\").toISO() }}",
+        "otherOptions": {},
+        "attachments": []
+      },
+      "id": "2ab572a3-9504-4153-a5bb-6c4277d4213c",
+      "name": "Slack Log - Final Reminder1",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        256,
+        704
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "F8UuhBxpy5D5BUWV",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json['Second Email Sent'] }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "notEqual",
+                "singleValue": true
+              },
+              "id": "chk2"
+            },
+            {
+              "id": "079ab2fa-672c-4745-985b-4c0d8234d88d",
+              "leftValue": "={{ $json['Third Email Sent'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -912,
+        608
+      ],
+      "id": "0f6f3065-72a3-4251-9535-4737037ad166",
+      "name": "Third Email Sent Check"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "options": {}
+      },
+      "id": "ea108600-d5e9-4e1a-b4eb-c647cf21dbb4",
+      "name": "ARF - Master Data",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1936,
+        208
+      ],
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "z4QGnSWNU2R0e8Ik",
+          "name": "Google Sheets Trigger account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4",
+          "mode": "list",
+          "cachedResultName": "ARF - RPG - Master Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1282988170,
+          "mode": "list",
+          "cachedResultName": "MasterData ARF 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ht-UBwAGf9AVwAgJ0bZXuC0MpTsOm22QCixPWvVIK_4/edit#gid=1282988170"
+        },
+        "options": {}
+      },
+      "id": "bdc77743-dffa-4605-aa41-55b47e3d5a60",
+      "name": "Read First Email",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1584,
+        16
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5jgvXk3ta6yOtCAS",
+          "name": "Google Sheets account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Latest email id'] }}",
+        "subject": "Masai - RPG - Final Reminder - Action Required",
+        "message": "=<!DOCTYPE html> <html lang=\"en\"> <head>   <meta charset=\"UTF-8\">   <style>     body {       font-family: Arial, sans-serif;       color: #333333;       line-height: 1.6;       margin: 0;       padding: 0;       background-color: #f7f7f7;     }     .container {       max-width: 650px;       margin: 30px auto;       background-color: #ffffff;       border-radius: 8px;       padding: 25px 30px;       box-shadow: 0px 2px 6px rgba(0,0,0,0.1);     }     p {       margin-bottom: 15px;     }     a {       color: #1a73e8;       text-decoration: none;     }     a:hover {       text-decoration: underline;     }     .btn {       display: inline-block;       background-color: #1a73e8;       color: #ffffff !important;       padding: 10px 18px;       border-radius: 5px;       font-weight: bold;       margin-top: 10px;     }     .footer {       margin-top: 30px;       font-size: 13px;       color: #777777;     }   </style> </head> <body>   <div class=\"container\">      <p>Dear {{ $json['Student Name'] }},</p>      <p>As discussed during our initial call, you were informed about the <strong>7-day deadline</strong> for completing the re-entry steps.</p>      <p>Our support is based on your intent and effort. At this point, we are observing a lack of initiative from your side, which makes it difficult for us to continue providing assistance.</p>      <p>That said, we are giving you an <strong>additional 4 days</strong> to complete the re-entry steps. If you are unable to do so within this timeframe, we will be unable to continue offering <strong>Alumni Benefit support</strong>.</p>      <p>After updating your <strong>Resume, Portfolio, and GitHub profiles</strong>, kindly follow the steps mentioned in the following document:</p>     <p><a href=\"https://drive.google.com/file/d/1wzbPR5mPovnxEaLx-CcRoOxHrkAtIJ30/view?usp=drive_link\" target=\"_blank\" class=\"btn\">RPG Clearance Document</a></p>      <p>Once you have worked on the feedback provided by the team, please submit your updated RPG links using this form:</p>     <p><a href=\"https://docs.google.com/forms/d/e/1FAIpQLSc6Ot7AWsg79nUM8W4bAxbWSA1WLqk0D0Nlu4ooMyBQigBFNw/viewform\" target=\"_blank\" class=\"btn\">Submit Updated RPG Links</a></p>      <p><strong>Please treat this as a final reminder</strong> and take the necessary action within the given timeframe.</p>      <p>Warm Regards,<br>     <strong>Masai School</strong></p>      <div class=\"footer\">       <p>This is an automated email. Please do not reply to this message.</p>     </div>   </div> </body> </html>",
+        "options": {
+          "ccList": "gautam.yadav@masaischool.com, jisshnu.ns@masaischool.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -240,
+        256
+      ],
+      "id": "453e4a59-2b9f-419f-9b0e-039998d7543c",
+      "name": "Final Reminder Email",
+      "webhookId": "fb8183ac-26f9-412f-9bdc-47dafdf49bf6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "AibNzMyU8i1G375j",
+          "name": "Gmail account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aba6848f-4cd9-4542-b762-0afe35c30cc7",
+              "leftValue": "={{ $json['Final Status'] }}",
+              "rightValue": "Not Cleared",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1136,
+        16
+      ],
+      "id": "2c14b97f-b3ed-4d28-bfbf-c64f8a47dc6f",
+      "name": "RPG - Not Cleared"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aba6848f-4cd9-4542-b762-0afe35c30cc7",
+              "leftValue": "={{ $json['Final Status'] }}",
+              "rightValue": "Not Cleared",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1136,
+        320
+      ],
+      "id": "a8e65e4d-9f8f-4846-8ab3-e437d61a4da0",
+      "name": "RPG - Not Cleared1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aba6848f-4cd9-4542-b762-0afe35c30cc7",
+              "leftValue": "={{ $json['Final Status'] }}",
+              "rightValue": "Not Cleared",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1136,
+        608
+      ],
+      "id": "274ebb22-c33b-422e-8920-b34cd586e53b",
+      "name": "RPG - Not Cleared2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Read Second Reminder Eligible2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Read Final Reminder Eligible2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Read First Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Second Reminder Eligible2": {
+      "main": [
+        [
+          {
+            "node": "IF Placement Status4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Final Reminder Eligible2": {
+      "main": [
+        [
+          {
+            "node": "IF Placement Status5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Placements Status": {
+      "main": [
+        [
+          {
+            "node": "RPG - Not Cleared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Placement Status4": {
+      "main": [
+        [
+          {
+            "node": "RPG - Not Cleared1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Placement Status5": {
+      "main": [
+        [
+          {
+            "node": "RPG - Not Cleared2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "First Email NOT Sent?": {
+      "main": [
+        [
+          {
+            "node": "Split First Batch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Second Email NOT Sent?": {
+      "main": [
+        [
+          {
+            "node": "Gate 3 Days Since First",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split First Batch1": {
+      "main": [
+        [
+          {
+            "node": "First Generic Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack Log - First Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Second Batch1": {
+      "main": [
+        [
+          {
+            "node": "Slack Log - Second Reminder1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Final Reminder Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Final Batch1": {
+      "main": [
+        [
+          {
+            "node": "Final Closure Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack Log - Final Reminder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate 3 Days Since First": {
+      "main": [
+        [
+          {
+            "node": "Split Second Batch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate 3 Days Since Second": {
+      "main": [
+        [
+          {
+            "node": "Split Final Batch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "First Generic Email": {
+      "main": [
+        [
+          {
+            "node": "First Email Sent Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "First Email Sent Update": {
+      "main": [
+        [
+          {
+            "node": "Slack Log - First Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Second Email Sent Update": {
+      "main": [
+        [
+          {
+            "node": "Slack Log - Second Reminder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Closure Email": {
+      "main": [
+        [
+          {
+            "node": "Third Email Sent Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Third Email Sent Update": {
+      "main": [
+        [
+          {
+            "node": "Slack Log - Final Reminder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Third Email Sent Check": {
+      "main": [
+        [
+          {
+            "node": "Gate 3 Days Since Second",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ARF - Master Data": {
+      "main": [
+        [
+          {
+            "node": "Read First Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Read Second Reminder Eligible2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Read Final Reminder Eligible2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read First Email": {
+      "main": [
+        [
+          {
+            "node": "Add to Placements Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Reminder Email": {
+      "main": [
+        [
+          {
+            "node": "Second Email Sent Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RPG - Not Cleared": {
+      "main": [
+        [
+          {
+            "node": "First Email NOT Sent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RPG - Not Cleared1": {
+      "main": [
+        [
+          {
+            "node": "Second Email NOT Sent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RPG - Not Cleared2": {
+      "main": [
+        [
+          {
+            "node": "Third Email Sent Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ba8a6cce-2cb3-4a8e-94cc-ee46a31b76af",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5abe11c526582f57830f51c10e2ebcb6da2429bc3e7b57bb3f8393da1053fb4b"
+  },
+  "id": "DGSO1XF4gUq67c8b",
+  "tags": []
+}
